@@ -1,8 +1,9 @@
+import { useContext } from "react";
 import { toast } from "react-toastify";
+import { Context } from "../context/Wrapper";
 
-const Render = (props) => {
-  const employs = props.employs;
-  const setemploys = props.setemploys;
+const Render = () => {
+  const [employs, setemploys] = useContext(Context);
 
   const renderingElem = employs.map((user) => {
     return (
@@ -16,7 +17,7 @@ const Render = (props) => {
           <p>
             {" "}
             Salary: {user.salary}
-            {user.salary != "" ? '$' : ""}
+            {user.salary != "" ? "$" : ""}
           </p>
           <p> Id: {user.id}</p>
         </div>

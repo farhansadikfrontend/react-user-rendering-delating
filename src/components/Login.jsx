@@ -1,10 +1,11 @@
 import { nanoid } from "nanoid";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { Context } from "../context/Wrapper";
 
-const Login = (props) => {
-  const employs = props.employs;
-  const setemploys = props.setemploys;
+const Login = () => {
+  const [employs, setemploys] = useContext(Context);
 
   const {
     register,
@@ -37,6 +38,7 @@ const Login = (props) => {
           Fullname
         </label>
         <input
+          required
           {...register("fullname", { required: "Fullname can not be empty" })}
           className="border-b pb-1 outline-0 w-[100%]"
           id="fullname"
@@ -48,6 +50,7 @@ const Login = (props) => {
           Age
         </label>
         <input
+          required
           {...register("age")}
           className="border-b pb-1 outline-0 w-[100%]"
           id="age"
@@ -58,6 +61,7 @@ const Login = (props) => {
           Salary
         </label>
         <input
+          required
           {...register("salary")}
           className="border-b pb-1 outline-0 w-[100%]"
           id="salary"
