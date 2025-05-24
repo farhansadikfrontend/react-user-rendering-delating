@@ -1,62 +1,70 @@
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const Login = (props) => {
-  const users = props.users;
-  const setUsers = props.setUsers;
-  const [fullname, setFullname] = useState("");
-  const [age, setAge] = useState("");
+  const employs = props.employs;
+  const setemploys = props.setemploys;
 
-  const chaneNameHandeler = (e) => {
-    setFullname(e.target.value);
-  };
-  const chaneAgeHandeler = (e) => {
-    setAge(e.target.value);
-  };
-  const SubmitHandeler = (e) => {
-    e.preventDefault();
-    const newUser = {
-      fullname: fullname,
-      age: age,
-      id: nanoid(),
-    };
-    const copyUsers = [...users];
-    copyUsers.push(newUser);
-    setUsers(copyUsers);
-    setFullname("");
-    setAge("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const SubmitHandeler = (data) => {
+    data.id = nanoid();
+
+    const copyemploys = [...employs];
+    copyemploys.push(data);
+    setemploys(copyemploys);
+
+    toast.success("New emoloy created");
+    reset();
   };
 
   return (
     <form
-      onSubmit={SubmitHandeler}
+      onSubmit={handleSubmit(SubmitHandeler)}
       className="w-[100%] flex items-center justify-center"
     >
-      <div className="w-[95%] md:w-[70%] lg:w-[50%] p-6 flex gap-2 flex-col">
-        <h2 className="text-[clamp(25px,5vw,30px)] text-green-600 text-center mb-6">
-          Creating Employ Details
+      <div className="w-[95%] md:w-[70%] lg:w-[50%] px-6 flex gap-0 flex-col">
+        <h2 className="text-2xl md:text-4xl text-orange-400 text-center my-2">
+          Create Employ
         </h2>{" "}
-        <label htmlFor="fullname">Fullname</label>
+        <label className="pt-4" htmlFor="fullname">
+          Fullname
+        </label>
         <input
-          className="border-b pb-2 outline-0 w-[100%] mb-4"
-          required
+          {...register("fullname", { required: "Fullname can not be empty" })}
+          className="border-b pb-1 outline-0 w-[100%]"
           id="fullname"
-          onChange={chaneNameHandeler}
-          value={fullname}
           type="text"
-          placeholder="enter your full name"
+          placeholder="enter employs fullname"
         />
-        <label htmlFor="age">Age</label>
+        <small className="text-red-500">{errors?.fullname?.message}</small>
+        <label className="pt-4" htmlFor="age">
+          Age
+        </label>
         <input
-          className="border-b pb-2 outline-0 w-[100%] mb-4"
-          required
+          {...register("age")}
+          className="border-b pb-1 outline-0 w-[100%]"
           id="age"
-          onChange={chaneAgeHandeler}
-          value={age}
           type="number"
-          placeholder="enter your age"
+          placeholder="enter employs age"
         />
-        <button className="border py-1 px-4 rounded cursor-pointer active:scale-[0.98] bg-green-600 text-white w-[100px]">
+        <label className="pt-4" htmlFor="salary">
+          Salary
+        </label>
+        <input
+          {...register("salary")}
+          className="border-b pb-1 outline-0 w-[100%]"
+          id="salary"
+          type="number"
+          placeholder="enter employs salary"
+        />
+        <button className="border mt-4 py-1 px-4 rounded cursor-pointer active:scale-[0.98] bg-orange-400 text-white w-[100px]">
           Submit
         </button>
       </div>

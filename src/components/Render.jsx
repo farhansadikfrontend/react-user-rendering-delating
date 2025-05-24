@@ -1,16 +1,23 @@
-const Render = (props) => {
-  const users = props.users;
-  const setUsers = props.setUsers;
+import { toast } from "react-toastify";
 
-  const renderingElem = users.map((user) => {
+const Render = (props) => {
+  const employs = props.employs;
+  const setemploys = props.setemploys;
+
+  const renderingElem = employs.map((user) => {
     return (
       <li
         key={user.id}
-        className="border shrink-0 w-[350px] bg-green-100 py-2 px-6 flex justify-between items-baseline"
+        className="border shrink-0 w-[350px] h-fit bg-orange-100 pb-3 px-6 flex justify-between items-baseline"
       >
         <div>
           <h2 className="text-xl"> Name: {user.fullname}</h2>
           <p> Age: {user.age} </p>
+          <p>
+            {" "}
+            Salary: {user.salary}
+            {user.salary != "" ? '$' : ""}
+          </p>
           <p> Id: {user.id}</p>
         </div>
         <button
@@ -24,24 +31,27 @@ const Render = (props) => {
   });
 
   const delateUser = (id) => {
-    const filtered = users.filter(() => {
-      users.id != id;
-    });
-
-    setUsers(filtered);
+    const filtered = employs.filter((user) => user.id != id);
+    setemploys(filtered);
+    toast.error("Employ deleted");
   };
 
   return (
-    <div className="py-2 relative mt-10">
+    <div className="py-6 relative">
+      <h1 className="text-center md:text-start text-2xl md:text-4xl text-orange-500 mb-8">
+        Employs List.
+      </h1>
       <p
-        className={`text-red-500 absolute ${
+        className={`text-red-500 text-xl md:text-2xl absolute ${
           renderingElem.length !== 0 ? "hidden" : "block"
-        } top-14 left-1/2 -translate-x-1/2 -translate-y-1/2`}
+        } top-50 md:top-40 left-1/2 -translate-x-1/2 -translate-y-1/2`}
       >
-        No Employ Yet
+        No Employ Yet!
       </p>
 
-      <ol className="flex gap-4 overflow-x-auto">{renderingElem}</ol>
+      <ol className="flex flex-col md:flex-row items-center gap-4  overflow-y-auto md:overflow-x-auto h-[50vh] md:h-auto">
+        {renderingElem}
+      </ol>
     </div>
   );
 };

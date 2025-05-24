@@ -3,13 +3,13 @@ import Login from "./components/Login";
 import Render from "./components/Render";
 
 const App = () => {
-  const [users, setUsers] = useState([]);
+  const [employs, setemploys] = useState([]);
 
   // Return
   return (
     <div className="p-4">
-      <Login users={users} setUsers={setUsers} />
-      <Render users={users} setUsers={setUsers} />
+      <Login employs={employs} setemploys={setemploys} />
+      <Render employs={employs} setemploys={setemploys} />
     </div>
   );
 };
